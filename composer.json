@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rubenmartindev\\PrestaShopVersionChecker\\": "src/"
+            "RubenMartinDev\\PrestaShopVersionChecker\\": "src/"
         }
     },
     "autoload-dev": {
