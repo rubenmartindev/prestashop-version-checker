@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 use RubenMartinDev\PrestaShopVersionChecker\PrestaShopVersionChecker;
 use RuntimeException;
 
+/**
+ * @runTestsInSeparateProcesses
+ */
 class PrestaShopVersionCheckerTest extends TestCase
 {
     public function testIsThrowsExceptionWhenPrestaShopNotInitialized()
