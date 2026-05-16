@@ -37,17 +37,26 @@ class PrestaShopVersionChecker
     /**
      * Check if the current version of PrestaShop is lower than the given version
      *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
+     *
      * @param string $version
      *
      * @return bool
      */
     public static function lt($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is("<{$version}");
     }
 
     /**
      * Check if the current version of PrestaShop is lower than or equal to the given version
+     *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
      *
      * @param string $version
      *
@@ -55,11 +64,18 @@ class PrestaShopVersionChecker
      */
     public static function lte($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is("<={$version}");
     }
 
     /**
      * Check if the current version of PrestaShop is higher than the given version
+     *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
      *
      * @param string $version
      *
@@ -67,11 +83,18 @@ class PrestaShopVersionChecker
      */
     public static function gt($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is(">{$version}");
     }
 
     /**
      * Check if the current version of PrestaShop is higher than or equal to the given version
+     *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
      *
      * @param string $version
      *
@@ -79,11 +102,18 @@ class PrestaShopVersionChecker
      */
     public static function gte($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is(">={$version}");
     }
 
     /**
      * Check if the current version of PrestaShop is equal to the given version
+     *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
      *
      * @param string $version
      *
@@ -91,11 +121,18 @@ class PrestaShopVersionChecker
      */
     public static function eq($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is("=={$version}");
     }
 
     /**
      * Check if the current version of PrestaShop is not equal to the given version
+     *
+     * @deprecated Since 1.1.0 and will be removed in the next major. Use method PrestaShopVersionChecker::is().
      *
      * @param string $version
      *
@@ -103,6 +140,11 @@ class PrestaShopVersionChecker
      */
     public static function neq($version)
     {
+        @\trigger_error(
+            \sprintf('%s is deprecated since 1.1.0 and will be removed in the next major. Use %s::%s() instead.', __METHOD__, __CLASS__, 'is'),
+            \E_USER_DEPRECATED
+        );
+
         return self::is("!={$version}");
     }
 }
