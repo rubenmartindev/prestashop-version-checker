@@ -12,6 +12,12 @@ if (!function_exists('is_ps_version')) {
      */
     function is_ps_version($compare)
     {
-        return PrestaShopVersionChecker::is($compare);
+        try {
+            return PrestaShopVersionChecker::is($compare);
+        } catch (RuntimeException $e) {
+        } catch (InvalidArgumentException $e) {
+        }
+
+        return false;
     }
 }
