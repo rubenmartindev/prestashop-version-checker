@@ -2,6 +2,7 @@
 
 namespace RubenMartinDev\PrestaShopVersionChecker\Tests\Unit;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use RubenMartinDev\PrestaShopVersionChecker\PrestaShopVersionChecker;
 use RuntimeException;
@@ -14,24 +15,37 @@ class PrestaShopVersionCheckerTest extends TestCase
     public function testIsThrowsExceptionWhenPrestaShopNotInitialized()
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('PrestaShop is not initialized');
 
         PrestaShopVersionChecker::is('>1.7');
+    }
+
+    public function testIsThrowsExceptionWhenCompareIsNotString()
+    {
+        $this->setPrestaShopVersion();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('$compare must be a string');
+
+        PrestaShopVersionChecker::is(1.1);
     }
 
     public function testIsThrowsExceptionWhenInvalidOperator()
     {
         $this->setPrestaShopVersion();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid operator comparison, expected one of: "<>", "<=", "<," ">=", ">," "==", "=," "!=", "lt", "le", "gt", "ge", "eq" or "ne"');
 
         PrestaShopVersionChecker::is('a1.7');
     }
 
-    public function testIsThrowsExceptionWhenInvalidVersion()
+    public function testIsThrowsExceptionWhenInvalidVersionNumber()
     {
         $this->setPrestaShopVersion();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid version comparison, expected a version number');
 
         PrestaShopVersionChecker::is('>a');
     }
@@ -48,6 +62,12 @@ class PrestaShopVersionCheckerTest extends TestCase
         $this->assertTrue(PrestaShopVersionChecker::is('==1.6.1.24'));
         $this->assertTrue(PrestaShopVersionChecker::is('!=1.6.0'));
         $this->assertTrue(PrestaShopVersionChecker::is('=1.6.1.24'));
+        $this->assertTrue(PrestaShopVersionChecker::is('lt 1.7'));
+        $this->assertTrue(PrestaShopVersionChecker::is('le 1.6.1.24'));
+        $this->assertTrue(PrestaShopVersionChecker::is('gt 1.6'));
+        $this->assertTrue(PrestaShopVersionChecker::is('ge 1.6.1'));
+        $this->assertTrue(PrestaShopVersionChecker::is('eq 1.6.1.24'));
+        $this->assertTrue(PrestaShopVersionChecker::is('ne 1.6.0'));
     }
 
     public function testIsReturnsFalseWhenVersionDoesNotMatch()
@@ -62,6 +82,32 @@ class PrestaShopVersionCheckerTest extends TestCase
         $this->assertFalse(PrestaShopVersionChecker::is('==1.6.0'));
         $this->assertFalse(PrestaShopVersionChecker::is('!=1.6.1.24'));
         $this->assertFalse(PrestaShopVersionChecker::is('=1.6.0'));
+        $this->assertFalse(PrestaShopVersionChecker::is('lt 1.6'));
+        $this->assertFalse(PrestaShopVersionChecker::is('le 1.6.0'));
+        $this->assertFalse(PrestaShopVersionChecker::is('gt 1.7'));
+        $this->assertFalse(PrestaShopVersionChecker::is('ge 1.7'));
+        $this->assertFalse(PrestaShopVersionChecker::is('eq 1.6.0'));
+        $this->assertFalse(PrestaShopVersionChecker::is('ne 1.6.1.24'));
+    }
+
+    public function testIsCompareValidReturnsFalseWhenComparatorIsNotString()
+    {
+        $this->assertFalse(PrestaShopVersionChecker::isCompareValid(1.1));
+    }
+
+    public function testIsCompareValidReturnsFalseWhenInvalidOpertaor()
+    {
+        $this->assertFalse(PrestaShopVersionChecker::isCompareValid('a1.7'));
+    }
+
+    public function testIsCompareValidReturnsFalseWhenInvalidVersionNumber()
+    {
+        $this->assertFalse(PrestaShopVersionChecker::isCompareValid('>a'));
+    }
+
+    public function testIsCompareValidReturnsTrueWhenIsValid()
+    {
+        $this->assertTrue(PrestaShopVersionChecker::isCompareValid('>1.7.0'));
     }
 
     public function testLtReturnsTrueWhenVersionIsLessThan()
