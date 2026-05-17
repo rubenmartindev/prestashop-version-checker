@@ -41,18 +41,27 @@ if (PrestaShopVersionChecker::is('<1.7')) {
 
 ### Supported operators
 
-| Operator | Description |
-|----------|-------------|
-| `<`      | Less than |
-| `<=`     | Less than or equal |
-| `>`      | Greater than |
-| `>=`     | Greater than or equal |
-| `==`     | Equal |
-| `=`      | Equal (alias) |
-| `!=`     | Not equal |
-| `<>`     | Not equal (alias) |
+| Operator | Description            |
+|----------|------------------------|
+| `<`      | Less than              |
+| `<=`     | Less than or equal     |
+| `>`      | Greater than           |
+| `>=`     | Greater than or equal  |
+| `==`     | Equal                  |
+| `=`      | Equal (alias)          |
+| `!=`     | Not equal              |
+| `<>`     | Not equal (alias)      |
+| `lt`     | Less than              |
+| `le`     | Less than or equal     |
+| `gt`     | Greater than           |
+| `ge`     | Greater than or equal  |
+| `eq`     | Equal                  |
+| `ne`     | Not equal              |
 
 ### Shorthand methods
+
+> [!WARNING]
+> The shorthand methods are deprecated and will be removed in the next major release.
 
 ```php
 use RubenMartinDev\PrestaShopVersionChecker\PrestaShopVersionChecker;
@@ -76,7 +85,19 @@ PrestaShopVersionChecker::eq('1.7.8');  // Same as is('==1.7.8')
 PrestaShopVersionChecker::neq('1.6');   // Same as is('!=1.6')
 ```
 
-### Real-world example
+## Check if the `compare` is valid
+
+```php
+use RubenMartinDev\PrestaShopVersionChecker\PrestaShopVersionChecker;
+
+PrestaShopVersionChecker::isCompareValid('<1.7');    // true
+PrestaShopVersionChecker::isCompareValid('gt 1.7');  // true
+
+PrestaShopVersionChecker::isCompareValid(1.7);       // false
+PrestaShopVersionChecker::isCompareValid('foobar');  // false
+```
+
+## Real-world example
 
 ```php
 class MyModule extends Module
